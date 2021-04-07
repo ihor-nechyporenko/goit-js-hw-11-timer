@@ -23,14 +23,16 @@ class CountdownTimer {
     const currentTime = Date.now();
     const deltaTime = this.targetDate.getTime() - currentTime;
     const { days, hours, mins, secs } = this.getTimeComponents(deltaTime);
-    if (+days === 0 && +hours === 0 && +mins === 0 && +secs === 0) {
-      stop();
-    }
     this.onTick({ days, hours, mins, secs });
+    if (deltaTime <= 0) {
+      this.stop();
+    }
   }, 1000);
   };
 
   stop() {
+    const time = this.getTimeComponents(0);
+    this.onTick(time);
     clearInterval(this.timerId);
   };
 
