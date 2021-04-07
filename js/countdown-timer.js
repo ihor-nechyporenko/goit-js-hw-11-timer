@@ -48,14 +48,14 @@ class CountdownTimer {
 
 const timer = new CountdownTimer({
   selector: '#timer-1',
-  targetDate: new Date('Apr 08, 2021'),
+  targetDate: new Date('Apr 12, 2021'),
 });
 
 timer.start();
 
 function updateClockFace({ days, hours, mins, secs }) {
-  ref.days.textContent = days;
-  ref.hours.textContent = hours;
-  ref.mins.textContent = mins;
-  ref.secs.textContent = secs;
+  ref.days.textContent = `${days}:`;
+  ref.hours.textContent = `${hours}:`;
+  ref.mins.textContent = `${mins}:`;
+  ref.secs.textContent = `${secs}`;
 }
