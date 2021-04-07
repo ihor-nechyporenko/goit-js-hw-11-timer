@@ -10,9 +10,12 @@ const ref = {
 };
 
 class CountdownTimer {
-  constructor({ targetDate }) {
+  constructor({ targetDate, onTick }) {
     this.timerId = null;
     this.targetDate = targetDate;
+    this.onTick = onTick;
+
+    this.start();
   };
 
   start() {
@@ -23,8 +26,7 @@ class CountdownTimer {
     if (+days === 0 && +hours === 0 && +mins === 0 && +secs === 0) {
       stop();
     }
-    console.log(`${days}:${hours}:${mins}:${secs}`);
-    updateClockFace({ days, hours, mins, secs });
+    this.onTick({ days, hours, mins, secs });
   }, 1000);
   };
 
@@ -49,9 +51,8 @@ class CountdownTimer {
 const timer = new CountdownTimer({
   selector: '#timer-1',
   targetDate: new Date('Apr 12, 2021'),
+  onTick: updateClockFace,
 });
-
-timer.start();
 
 function updateClockFace({ days, hours, mins, secs }) {
   ref.days.textContent = `${days}:`;
